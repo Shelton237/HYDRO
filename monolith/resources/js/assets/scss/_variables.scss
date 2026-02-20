@@ -1,0 +1,53 @@
+:root {
+    --body: #f4f8f2;
+    --black: #000;
+    --white: #fff;
+    --theme: #1f6b2a;
+    --theme2: #4ea75d;
+    --header: #0f2d19;
+    --text: #2c3c2e;
+    --text-2: #f0fff0cc;
+    --border: #c8daca;
+    --border2: #13331b;
+    --border3: #8bc19b;
+    --bg: #f4f8f2;
+    --bg2: #0f2314;
+    --bg3: #e3f0e4;
+    --brand-dark: #143e22;
+    --brand-mid: #3c7f4b;
+    --brand-light: #c1dfc6;
+    --brand-muted: #d9eadb;
+    --button: #1f6b2a;
+    --box-shadow: 0px 4px 25px rgba(0, 0, 0, 0.06);
+    --box-shadow-2: 0px 4px 25px rgba(56, 75, 255, 0.1);
+    --bs-primary: var(--theme);
+    --bs-primary-rgb: 31, 107, 42;
+    --bs-success: var(--theme2);
+    --bs-success-rgb: 78, 167, 93;
+    --bs-link-color: var(--theme);
+    --bs-link-hover-color: var(--brand-dark);
+    --bs-body-color: var(--text);
+    --bs-body-bg: var(--body);
+}
+
+// Theme Color - Defualt Colors
+$black: var(--black);
+$white: var(--white);
+$theme-color: var(--theme);
+$theme-color-2: var(--theme2);
+$brand-dark: var(--brand-dark);
+$brand-mid: var(--brand-mid);
+$brand-light: var(--brand-light);
+$brand-muted: var(--brand-muted);
+$text-color: var(--text);
+$text-color-2: var(--text-2);
+$header-color: var(--header);
+$button-color: var(--button);
+$border-color: var(--border);
+$border-color-2: var(--border2);
+$border-color-3: var(--border3);
+$bg-color: var(--bg);
+$bg-color-2: var(--bg2);
+$bg-color-3: var(--bg3);
+$shadow: var(--box-shadow);
+$shadow-2: var(--box-shadow-2);

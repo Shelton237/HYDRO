@@ -1,0 +1,87 @@
+:root {
+    --logo-max-height: 72px;
+    --logo-max-height-sm: 56px;
+}
+
+body {
+    background-color: $bg-color;
+    color: $text-color;
+}
+
+a {
+    color: $theme-color;
+    transition: color 0.2s ease;
+
+    &:hover {
+        color: $brand-dark;
+    }
+}
+
+.btn-primary,
+.btn-success {
+    background-color: $theme-color;
+    border-color: $theme-color;
+    color: $white;
+
+    &:hover,
+    &:focus {
+        background-color: $brand-dark;
+        border-color: $brand-dark;
+        color: $white;
+    }
+}
+
+.btn-outline-primary {
+    color: $theme-color;
+    border-color: $theme-color;
+
+    &:hover,
+    &:focus {
+        background-color: $theme-color;
+        border-color: $theme-color;
+        color: $white;
+    }
+}
+
+.bg-primary,
+.navbar.bg-primary,
+.text-bg-primary {
+    background-color: $theme-color !important;
+    color: $white !important;
+}
+
+.badge.text-bg-primary {
+    background-color: $theme-color;
+}
+
+.header-logo,
+.header-logo-2,
+.main-logo,
+.offcanvas__logo,
+.footer-section .widget-head,
+.footer-bottom .logo,
+.footer-section .logo {
+    img {
+        max-height: var(--logo-max-height);
+        width: auto;
+        object-fit: contain;
+        height: auto;
+    }
+}
+
+@media (max-width: 575px) {
+    .header-logo img,
+    .header-logo-2 img,
+    .main-logo img,
+    .offcanvas__logo img,
+    .footer-section .widget-head img,
+    .footer-section .logo img {
+        max-height: var(--logo-max-height-sm);
+    }
+}
+
+.footer-section {
+    .widget-head {
+        margin-bottom: 20px;
+    }
+}

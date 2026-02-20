@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer components {
+  .admin-card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-sm;
+  }
+
+  .admin-section-title {
+    @apply text-sm font-semibold uppercase tracking-[0.2em] text-slate-500;
+  }
+}
