@@ -53,7 +53,7 @@ const HomeTwo = ({ hero, services = [], about, homeSections = {} }: Props) => {
   const testimonialSection = sections.testimonial ?? null;
   const blogsSection = sections.blogs ?? null;
   return (
-    <>
+    <div className="home-two-page">
       {shouldRender(heroSection) && <HeroTwo hero={hero} section={heroSection || undefined} />}
       {shouldRender(servicesSection) && <ServicesTwo services={services} section={servicesSection ?? undefined} />}
       {shouldRender(aboutSection) && <AboutTwo about={about} />}
@@ -88,7 +88,7 @@ const HomeTwo = ({ hero, services = [], about, homeSections = {} }: Props) => {
       {shouldRender(blogsSection) && (
         <BlogsTwo section={blogsSection ?? undefined} />
       )}
-    </>
+    </div>
   );
 };
 
