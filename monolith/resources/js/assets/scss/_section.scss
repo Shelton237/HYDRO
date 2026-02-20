@@ -6,6 +6,7 @@
 	z-index: 99;
 	margin-bottom: 30px;
 	margin-top: -7px;
+	text-align: left;
 
 	@include breakpoint (max-md){
 		margin-bottom: 0;
@@ -21,6 +22,7 @@
 
 	h2 {
 		font-weight: bold;
+		font-size: 30px;
 		
 		span {
 			color: $theme-color;
@@ -28,6 +30,12 @@
 			margin-bottom: 0;
 			text-transform: capitalize;
 		}
+	}
+
+	&.text-center,
+	&.text-center h2 {
+		text-align: center;
+		font-size: 30px;
 	}
 
 }
