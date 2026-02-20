@@ -1,4 +1,4 @@
-﻿import ApplicationLogo from '@/Components/ApplicationLogo';
+import ApplicationLogo from '@/components/ApplicationLogo';
 import { Link, usePage } from '@inertiajs/react';
 import { useMemo } from 'react';
 import '../../css/admin.css';
@@ -15,7 +15,7 @@ const navigation = [
         section: 'Contenus',
         links: [
           { label: 'Hero accueil', href: '/admin/hero' },
-          { label: 'À propos', href: '/admin/about' },
+          { label: '� propos', href: '/admin/about' },
           { label: 'Footer', href: '/admin/footer' },
           { label: 'Contact', href: '/admin/contact' },
           { label: 'Sections accueil', href: '/admin/home-sections' },
@@ -115,7 +115,7 @@ const DashboardLayout = ({ children }) => {
                 as="button"
                 className="rounded-xl border border-slate-200 px-4 py-2 text-sm font-semibold text-slate-700 transition hover:bg-slate-100"
               >
-                Déconnexion
+                D�connexion
               </Link>
             </div>
           </div>
@@ -149,8 +149,8 @@ const DashboardLayout = ({ children }) => {
 
         <footer className="border-t border-slate-200 bg-white">
           <div className="mx-auto flex w-full flex-col gap-2 px-4 py-4 text-xs text-slate-500 sm:flex-row sm:items-center sm:justify-between">
-            <span>Â© {year} Cameroun Hydraulique â€” Espace privÃ©</span>
-            <span>Mis Ã  jour en local</span>
+            <span>© {year} Cameroun Hydraulique — Espace privé</span>
+            <span>Mis à jour en local</span>
           </div>
         </footer>
       </div>
