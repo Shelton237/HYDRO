@@ -52,11 +52,30 @@ const HomeTwo = ({ hero, services = [], about, homeSections = {} }: Props) => {
   const homeContactSection = sections.home_contact ?? null;
   const testimonialSection = sections.testimonial ?? null;
   const blogsSection = sections.blogs ?? null;
+  const resolvedAbout = aboutSection
+    ? {
+        subtitle: aboutSection.subtitle ?? about?.subtitle ?? null,
+        title: aboutSection.title ?? about?.title ?? null,
+        highlight: about?.highlight ?? null,
+        description: aboutSection.description ?? about?.description ?? null,
+        background_image: aboutSection.image_path ?? about?.background_image ?? null,
+        button_label: about?.button_label ?? null,
+        button_url: about?.button_url ?? null,
+        icon_one_title: about?.icon_one_title ?? null,
+        icon_one_description: about?.icon_one_description ?? null,
+        icon_two_title: about?.icon_two_title ?? null,
+        icon_two_description: about?.icon_two_description ?? null,
+        author_name: about?.author_name ?? null,
+        author_title: about?.author_title ?? null,
+        author_image: aboutSection.icon_path ?? about?.author_image ?? null,
+      }
+    : about ?? null;
+
   return (
     <div className="home-two-page">
       {shouldRender(heroSection) && <HeroTwo hero={hero} section={heroSection || undefined} />}
       {shouldRender(servicesSection) && <ServicesTwo services={services} section={servicesSection ?? undefined} />}
-      {shouldRender(aboutSection) && <AboutTwo about={aboutSection ?? about} />}
+      {shouldRender(aboutSection) && <AboutTwo about={resolvedAbout} />}
       {shouldRender(marqueSection) && <MarqueeTicker />}
       {shouldRender(offerSection) && <Offer section={offerSection ?? undefined} />}
       <WorkProcess />
