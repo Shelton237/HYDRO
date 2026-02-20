@@ -45,10 +45,11 @@
 	}
 
 	.container-fluid {
-		padding: 0 130px;
+		padding: 0 24px;
+		max-width: 100%;
 
 		@include breakpoint (max-xxl) {
-			padding: 0 50px;
+			padding: 0 20px;
 		}
 	}
 }
@@ -148,11 +149,7 @@
 	}
 
 	&.style-2 {
-		margin-left: 250px;
-
-		@include breakpoint (max-xl4) {
-			margin-left: 0;
-		}
+		margin-left: 0;
 	}
 }
 
@@ -541,7 +538,7 @@
 	.main-logo {
 		position: absolute;
 		top: 0;
-		left: 60px;
+		left: 24px;
 		z-index: 9;
 
 		@include breakpoint (max-xl4) {
@@ -550,18 +547,18 @@
 	}
 
 	.container-fluid {
-		padding: 0 130px;
+		padding: 0 24px;
 
 		@include breakpoint (max-xxl) {
-			padding: 0 50px;
+			padding: 0 20px;
 		}
 
 		@include breakpoint (max-lg) {
-			padding: 0 40px;
+			padding: 0 18px;
 		}
 
 		@include breakpoint (max-sm) {
-			padding: 0 15px;
+			padding: 0 12px;
 		}
 	}
 
@@ -619,7 +616,7 @@
 	}
 
 	.header-left {
-		margin-left: 250px;
+		margin-left: 0;
 	}
 }
 
