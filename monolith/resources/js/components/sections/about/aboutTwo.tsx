@@ -13,9 +13,6 @@ export type AboutContent = {
   icon_one_description?: string | null
   icon_two_title?: string | null
   icon_two_description?: string | null
-  author_name?: string | null
-  author_title?: string | null
-  author_image?: string | null
 }
 
 type Props = {
@@ -35,9 +32,6 @@ const defaultContent = {
   icon_one_description: 'Contrôles des produits/services et logistique 24h depuis Douala & Yaoundé.',
   icon_two_title: 'Parc roulant & équipes',
   icon_two_description: 'Matériels d’intervention et hydrauliciens certifiés pour chaque secteur d’activité.',
-  author_name: 'Équipe Cameroun Hydraulique',
-  author_title: 'Hydrauliciens certifiés',
-  author_image: '/img/about/author.png',
 }
 
 const AboutTwo = ({ about }: Props) => {
@@ -53,9 +47,6 @@ const AboutTwo = ({ about }: Props) => {
     icon_one_description: about?.icon_one_description ?? defaultContent.icon_one_description,
     icon_two_title: about?.icon_two_title ?? defaultContent.icon_two_title,
     icon_two_description: about?.icon_two_description ?? defaultContent.icon_two_description,
-    author_name: about?.author_name ?? defaultContent.author_name,
-    author_title: about?.author_title ?? defaultContent.author_title,
-    author_image: about?.author_image ?? defaultContent.author_image,
   }
 
   return (
@@ -123,20 +114,11 @@ const AboutTwo = ({ about }: Props) => {
                     </div>
                   </div>
                 </div>
-                <div className="about-author">
-                  <div className="about-button wow slideUp" data-delay=".5">
-                    <Link href={content.button_url} className="theme-btn">
-                      {content.button_label}
-                      <i className="fa-solid fa-arrow-right-long" />
-                    </Link>
-                  </div>
-                  <div className="author-image wow slideUp" data-delay=".7">
-                    <img src={content.author_image} alt="author-img" />
-                    <div className="content">
-                      <h6>{content.author_name}</h6>
-                      <p>{content.author_title}</p>
-                    </div>
-                  </div>
+                <div className="about-button wow slideUp" data-delay=".5">
+                  <Link href={content.button_url} className="theme-btn">
+                    {content.button_label}
+                    <i className="fa-solid fa-arrow-right-long" />
+                  </Link>
                 </div>
               </div>
             </div>
