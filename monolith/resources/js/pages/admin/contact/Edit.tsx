@@ -1,4 +1,4 @@
-import AdminLayout from '@/layouts/AdminLayout';
+import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, useForm } from '@inertiajs/react';
 import type { ChangeEvent, FormEvent, PropsWithChildren, ReactNode, RefObject } from 'react';
 import { useEffect, useId, useRef, useState } from 'react';

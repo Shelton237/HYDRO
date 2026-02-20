@@ -1,4 +1,4 @@
-import AdminLayout from '@/layouts/AdminLayout';
+import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, useForm } from '@inertiajs/react';
 import {
   defaultQuickLinks,

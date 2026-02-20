@@ -1,5 +1,5 @@
 import ProductForm from '@/components/admin/ProductForm';
-import AdminLayout from '@/layouts/AdminLayout';
+import AdminLayout from '@/Layouts/AdminLayout';
 import type { ReactNode } from 'react';
 
 const ProductCreate = () => {

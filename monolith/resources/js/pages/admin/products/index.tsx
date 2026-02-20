@@ -1,4 +1,4 @@
-import AdminLayout from '@/layouts/AdminLayout';
+import AdminLayout from '@/Layouts/AdminLayout';
 import { Link, router } from '@inertiajs/react';
 import type { ReactNode } from 'react';
 import { FormEvent, useState } from 'react';

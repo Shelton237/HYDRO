@@ -1,5 +1,5 @@
 import ServiceForm from '@/components/admin/ServiceForm';
-import AdminLayout from '@/layouts/AdminLayout';
+import AdminLayout from '@/Layouts/AdminLayout';
 import { Head, Link } from '@inertiajs/react';
 import type { ReactNode } from 'react';
 
