@@ -56,7 +56,7 @@ const HomeTwo = ({ hero, services = [], about, homeSections = {} }: Props) => {
     <div className="home-two-page">
       {shouldRender(heroSection) && <HeroTwo hero={hero} section={heroSection || undefined} />}
       {shouldRender(servicesSection) && <ServicesTwo services={services} section={servicesSection ?? undefined} />}
-      {shouldRender(aboutSection) && <AboutTwo about={about} />}
+      {shouldRender(aboutSection) && <AboutTwo about={aboutSection ?? about} />}
       {shouldRender(marqueSection) && <MarqueeTicker />}
       {shouldRender(offerSection) && <Offer section={offerSection ?? undefined} />}
       <WorkProcess />
