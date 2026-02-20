@@ -159,12 +159,9 @@
 
 	&::before {
 		@include before;
-		background-color: $theme-color;
-		width: 16%;
-
-		@include breakpoint (max-xl4) {
-			display: none;
-		}
+		background-color: transparent;
+		width: 0;
+		display: none;
 	}
 }
 
@@ -177,16 +174,17 @@
 	.main-menu {
 		ul {
 			margin-bottom: 0;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			gap: 40px;
+			flex-wrap: wrap;
 
 			li {
 				position: relative;
 				list-style: none;
 				display: inline-block;
-				margin-inline-end: 40px;
-
-				&:last-child {
-					margin-inline-end: 0;
-				}
+				margin-inline-end: 0;
 
 				a {
 					display: inline-block;
