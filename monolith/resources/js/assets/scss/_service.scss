@@ -297,6 +297,13 @@
         background-image: url('@/assets/img/service/service-bg-2.jpg');
         top: 85%;
    }
+
+   @media (min-width: 1200px) {
+        .service-col {
+            flex: 0 0 20%;
+            max-width: 20%;
+        }
+   }
 }
 
 .service-card {

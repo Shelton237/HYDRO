@@ -73,7 +73,7 @@ const ServicesTwo = ({
           {normalized.map((service) => (
             <div
               key={service.id}
-              className="col-xl-3 col-lg-6 col-md-6 wow slideUp"
+              className="col-lg-6 col-md-6 service-col wow slideUp"
               data-delay={service.delay}
             >
               <ServiceCard service={service} className={`style-2 ${service.active ? "active" : ""}`} />
