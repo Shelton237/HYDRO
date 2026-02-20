@@ -145,7 +145,7 @@
                 width: 14px;
                 background-repeat: no-repeat;
                 background-size: cover;
-                background-image: url('/img/bar.png');
+                background-image: url('@/assets/img/bar.png');
 
                 @include breakpoint (max-xxl){
                     display: none;

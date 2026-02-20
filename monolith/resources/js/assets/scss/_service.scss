@@ -42,7 +42,7 @@
         content: "";
         background-repeat: no-repeat;
         background-size: cover;
-        background-image: url(/img/service/line-shape.png);
+        background-image: url('@/assets/img/service/line-shape.png');
         z-index: -1;
         visibility: hidden;
         opacity: 0;
@@ -67,7 +67,7 @@
             height: 80px;
             background-repeat: no-repeat;
             background-size: cover;
-            background-image: url(/img/service/shape.png);
+            background-image: url('@/assets/img/service/shape.png');
             z-index: -1;
             @include transition;
         }
@@ -223,7 +223,7 @@
 
         .icon {
             &::before {
-                background-image: url(/img/service/shape-2.png);
+                background-image: url('@/assets/img/service/shape-2.png');
             }
         }
 
@@ -244,7 +244,7 @@
         &:hover {
             .icon {
                 &::before {
-                    background-image: url(/img/service/shape.png);
+                    background-image: url('@/assets/img/service/shape.png');
                 }
             }
         }
@@ -263,7 +263,7 @@
 
             .icon {
                 &::before {
-                    background-image: url(/img/service/shape.png);
+                    background-image: url('@/assets/img/service/shape.png');
                 }
             }
 
@@ -294,7 +294,7 @@
         @include before;
         background-repeat: no-repeat;
         background-size: cover;
-        background-image: url(/img/service/service-bg-2.jpg);
+        background-image: url('@/assets/img/service/service-bg-2.jpg');
         top: 85%;
    }
 }

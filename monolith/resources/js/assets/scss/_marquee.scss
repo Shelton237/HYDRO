@@ -116,6 +116,6 @@
         @include before;
         background-repeat: no-repeat;
         background-size: cover;
-        background-image: url(/img/service/service-bg-2.jpg);
+        background-image: url('@/assets/img/service/service-bg-2.jpg');
     }
 }
