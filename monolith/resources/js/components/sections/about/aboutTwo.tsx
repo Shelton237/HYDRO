@@ -94,26 +94,7 @@ const AboutTwo = ({ about }: Props) => {
                 <p className="mt-3 mt-md-0 wow slideUp" data-delay=".5">
                   {content.description}
                 </p>
-                <div className="about-icon-items">
-                  <div className="icon-items wow slideUp" data-delay=".7">
-                    <div className="icon">
-                      <img src="/img/about/icon-4.svg" alt="icon-img" />
-                    </div>
-                    <div className="content">
-                      <h4>{content.icon_one_title}</h4>
-                      <p>{content.icon_one_description}</p>
-                    </div>
-                  </div>
-                  <div className="icon-items wow slideUp" data-delay=".9">
-                    <div className="icon">
-                      <img src="/img/about/icon-5.svg" alt="icon-img" />
-                    </div>
-                    <div className="content">
-                      <h4>{content.icon_two_title}</h4>
-                      <p>{content.icon_two_description}</p>
-                    </div>
-                  </div>
-                </div>
+                
                 <div className="about-button wow slideUp" data-delay=".5">
                   <Link href={content.button_url} className="theme-btn">
                     {content.button_label}
