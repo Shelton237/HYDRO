@@ -257,7 +257,7 @@ export default function Contact() {
                             id="name"
                             value={formData.name}
                             onChange={(e) => handleChange("name", e.target.value)}
-                            placeholder="Jean Dupont"
+                            placeholder="Saturnin Penlap"
                             required
                             className="border-border/50"
                           />
@@ -269,7 +269,7 @@ export default function Contact() {
                             type="email"
                             value={formData.email}
                             onChange={(e) => handleChange("email", e.target.value)}
-                            placeholder="jean.dupont@exemple.fr"
+                            placeholder="saturnin.penlap@exemple.cm"
                             required
                             className="border-border/50"
                           />
@@ -284,7 +284,7 @@ export default function Contact() {
                             type="tel"
                             value={formData.phone}
                             onChange={(e) => handleChange("phone", e.target.value)}
-                            placeholder="+33 6 12 34 56 78"
+                            placeholder="+237 674 00 00 00"
                             className="border-border/50"
                           />
                         </div>
