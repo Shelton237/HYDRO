@@ -20,6 +20,7 @@ export default function Contact() {
     company: "",
     subject: "none",
     message: "",
+    office: COMPANY_INFO.offices[0]?.city ?? "",
   });
   const [isSubmitted, setIsSubmitted] = useState(false);
 
@@ -35,6 +36,7 @@ export default function Contact() {
         company: "",
         subject: "none",
         message: "",
+        office: COMPANY_INFO.offices[0]?.city ?? "",
       });
     }, 3000);
   };
@@ -42,6 +44,8 @@ export default function Contact() {
   const handleChange = (field: string, value: string) => {
     setFormData(prev => ({ ...prev, [field]: value }));
   };
+
+  const selectedOffice = COMPANY_INFO.offices.find((office) => office.city === formData.office);
 
   return (
     <div className="min-h-screen bg-background">
@@ -315,6 +319,40 @@ export default function Contact() {
                             <SelectItem value="other">Autre</SelectItem>
                           </SelectContent>
                         </Select>
+                      </div>
+
+                      <div className="space-y-2">
+                        <Label>Agence concernÃ©e *</Label>
+                        <Select
+                          value={formData.office}
+                          onValueChange={(value) => handleChange("office", value)}
+                        >
+                          <SelectTrigger className="border-border/50">
+                            <SelectValue placeholder="Choisissez l'agence Ã  contacter" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {COMPANY_INFO.offices.map((office) => (
+                              <SelectItem key={office.city} value={office.city}>
+                                {office.city}
+                              </SelectItem>
+                            ))}
+                          </SelectContent>
+                        </Select>
+                        {selectedOffice && (
+                          <div className="rounded-lg border border-dashed border-border/60 bg-muted/40 p-4 text-sm space-y-2">
+                            <p className="font-semibold">{selectedOffice.city}</p>
+                            <ul className="space-y-1 text-muted-foreground">
+                              {selectedOffice.addresses.map((line, index) => (
+                                <li key={`${selectedOffice.city}-${index}`}>{line}</li>
+                              ))}
+                            </ul>
+                            {selectedOffice.bp && (
+                              <p className="text-xs uppercase tracking-wide text-muted-foreground">
+                                {selectedOffice.bp}
+                              </p>
+                            )}
+                          </div>
+                        )}
                       </div>
 
                       <div className="space-y-2">
