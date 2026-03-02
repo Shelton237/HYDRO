@@ -219,10 +219,13 @@ export function Layout({ children }: LayoutProps) {
               </NavLink>
 
               {/* Services mega dropdown */}
-              <div className="relative">
+              <div
+                className="relative"
+                onMouseEnter={() => setActiveDropdown("services")}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
                 <button
-                  onMouseEnter={() => setActiveDropdown("services")}
-                  onMouseLeave={() => setActiveDropdown(null)}
+                  type="button"
                   className={`relative flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md group
                     ${location.pathname.startsWith(ROUTE_PATHS.SERVICES) ? "text-primary" : "text-foreground/70 hover:text-foreground"}`}
                 >
@@ -233,8 +236,6 @@ export function Layout({ children }: LayoutProps) {
                 </button>
                 {/* Services Mega Panel */}
                 <div
-                  onMouseEnter={() => setActiveDropdown("services")}
-                  onMouseLeave={() => setActiveDropdown(null)}
                   className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[520px] bg-white dark:bg-card border border-border rounded-xl shadow-2xl shadow-black/10 overflow-hidden transition-all duration-200 origin-top
                     ${activeDropdown === "services" ? "opacity-100 scale-y-100 pointer-events-auto" : "opacity-0 scale-y-95 pointer-events-none"}`}
                 >
@@ -270,10 +271,13 @@ export function Layout({ children }: LayoutProps) {
               </div>
 
               {/* Secteurs dropdown */}
-              <div className="relative">
+              <div
+                className="relative"
+                onMouseEnter={() => setActiveDropdown("sectors")}
+                onMouseLeave={() => setActiveDropdown(null)}
+              >
                 <button
-                  onMouseEnter={() => setActiveDropdown("sectors")}
-                  onMouseLeave={() => setActiveDropdown(null)}
+                  type="button"
                   className={`relative flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md group
                     ${location.pathname.startsWith(ROUTE_PATHS.SECTORS) ? "text-primary" : "text-foreground/70 hover:text-foreground"}`}
                 >
@@ -283,8 +287,6 @@ export function Layout({ children }: LayoutProps) {
                     ${location.pathname.startsWith(ROUTE_PATHS.SECTORS) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
                 </button>
                 <div
-                  onMouseEnter={() => setActiveDropdown("sectors")}
-                  onMouseLeave={() => setActiveDropdown(null)}
                   className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-52 bg-white dark:bg-card border border-border rounded-xl shadow-2xl shadow-black/10 overflow-hidden transition-all duration-200 origin-top
                     ${activeDropdown === "sectors" ? "opacity-100 scale-y-100 pointer-events-auto" : "opacity-0 scale-y-95 pointer-events-none"}`}
                 >
