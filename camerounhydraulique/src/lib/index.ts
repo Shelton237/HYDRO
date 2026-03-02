@@ -1,6 +1,7 @@
 export const ROUTE_PATHS = {
   HOME: "/",
   SERVICES: "/services",
+  SERVICE_DETAIL: "/services/:id",
   SECTORS: "/secteurs",
   PRODUCTS: "/produits",
   ABOUT: "/a-propos",
@@ -36,6 +37,10 @@ export interface Service {
   icon: string;
   features: string[];
   image?: string;
+  intro?: string;
+  benefits?: { title: string; description: string }[];
+  process?: { step: string; title: string; description: string }[];
+  applications?: string[];
 }
 
 export interface Product {

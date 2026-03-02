@@ -8,6 +8,7 @@ import { ROUTE_PATHS } from "@/lib/index";
 import { Layout } from "@/components/Layout";
 import Home from "@/pages/Home";
 import Services from "@/pages/Services";
+import ServiceDetail from "@/pages/ServiceDetail";
 import Sectors from "@/pages/Sectors";
 import Products from "@/pages/Products";
 import About from "@/pages/About";
@@ -27,6 +28,7 @@ const App = () => (
             <Routes>
               <Route path={ROUTE_PATHS.HOME} element={<Home />} />
               <Route path={ROUTE_PATHS.SERVICES} element={<Services />} />
+              <Route path={ROUTE_PATHS.SERVICE_DETAIL} element={<ServiceDetail />} />
               <Route path={ROUTE_PATHS.SECTORS} element={<Sectors />} />
               <Route path={ROUTE_PATHS.PRODUCTS} element={<Products />} />
               <Route path={ROUTE_PATHS.ABOUT} element={<About />} />

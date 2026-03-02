@@ -1,12 +1,14 @@
 import { motion } from "framer-motion";
 import { Link } from "react-router-dom";
-import { ArrowRight, Calendar, MapPin, Package, Users, Award, TrendingUp } from "lucide-react";
+import { ArrowRight, Calendar, MapPin, Package, Users, Award, TrendingUp, Plus, Check } from "lucide-react";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import type { Service, Product, Exhibition, Stat } from "@/lib/index";
 import { ROUTE_PATHS } from "@/lib/index";
 import { springPresets, hoverLift } from "@/lib/motion";
+import { useQuoteStore } from "@/stores/quoteStore";
+import { useState } from "react";
 
 interface ServiceCardProps {
   service: Service;
@@ -79,6 +81,16 @@ interface ProductCardProps {
 }
 
 export function ProductCard({ product }: ProductCardProps) {
+  const { addItem, setOpen } = useQuoteStore();
+  const [added, setAdded] = useState(false);
+
+  const handleAddToQuote = () => {
+    addItem(product);
+    setAdded(true);
+    setTimeout(() => setAdded(false), 2000);
+    setOpen(true);
+  };
+
   return (
     <motion.div
       variants={hoverLift}
@@ -131,11 +143,21 @@ export function ProductCard({ product }: ProductCardProps) {
             </div>
           </CardContent>
         )}
-        <CardFooter>
-          <Button variant="outline" className="w-full group" asChild>
-            <Link to={ROUTE_PATHS.PRODUCTS}>
-              Voir détails
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+        <CardFooter className="flex gap-2">
+          <Button
+            className="flex-1 gap-2"
+            onClick={handleAddToQuote}
+            variant={added ? "secondary" : "default"}
+          >
+            {added ? (
+              <><Check className="h-4 w-4" /> Ajouté !</>
+            ) : (
+              <><Plus className="h-4 w-4" /> Devis</>
+            )}
+          </Button>
+          <Button variant="outline" size="icon" asChild>
+            <Link to={ROUTE_PATHS.PRODUCTS} title="Voir détails">
+              <ArrowRight className="h-4 w-4" />
             </Link>
           </Button>
         </CardFooter>

@@ -16,6 +16,20 @@ export const services: Service[] = [
       "Garantie 12 mois sur interventions",
     ],
     image: IMAGES.HYDRAULIC_HERO_1_1,
+    intro: "Cameroun Hydraulique dispose d'un atelier de réparation certifié Poclain Hydraulics et agréé Linde. Nos techniciens qualifiés interviennent sur tous types de pompes et moteurs hydrauliques : pistons axiaux, pistons radiaux, palettes, engrenages et orbitaux. Chaque pièce est diagnostiquée, réparée, testée sur banc d'essai et livrée avec une garantie de 12 mois.",
+    benefits: [
+      { title: "Diagnostic rapide", description: "Bilan complet de l'état d'usure et identification de la panne en moins de 24h." },
+      { title: "Pièces certifiées", description: "Nous utilisons exclusivement des pièces d'origine ou des équivalents OEM de qualité supérieure." },
+      { title: "Tests embarqués", description: "Chaque réparation est validée sur notre banc d'essai digital avant restitution." },
+      { title: "Garantie 12 mois", description: "Couverture totale sur les pièces et la main-d'œuvre pendant 12 mois sans frais cachés." },
+    ],
+    process: [
+      { step: "01", title: "Réception & Diagnostic", description: "Réception de la pièce, nettoyage et démontage complet. Relevé des cotes d'usure et identification des pièces à remplacer." },
+      { step: "02", title: "Devis & Validation", description: "Établissement d'un devis détaillé remis sous 24h. Validation par le client avant toute intervention." },
+      { step: "03", title: "Réparation", description: "Remontage avec pièces neuves, réglage des jeux et application des couples de serrage constructeur." },
+      { step: "04", title: "Test & Livraison", description: "Test sur banc d'essai hydraulique à pression nominale. Remise du rapport de test et livraison avec garantie." },
+    ],
+    applications: ["Pelleteuses et engins de terrassement", "Tracteurs et équipements agricoles", "Grues et nacelles élévatrices", "Compacteurs et finisseurs", "Chariots élévateurs et manutention"],
   },
   {
     id: "onsite",
@@ -30,6 +44,20 @@ export const services: Service[] = [
       "Dépannage d'urgence sous 4h",
     ],
     image: IMAGES.CONSTRUCTION_EQUIPMENT_1_4,
+    intro: "Nos équipes mobiles interviennent sur l'ensemble du territoire camerounais et de la sous-région Afrique Centrale. Chaque camion atelier est équipé de l'outillage hydraulique complet : machines à sertir portatives, bancs de test de flexibles, presses d'atelier, détecteurs de fuites ultrasoniques et stock de pièces courantes pour une intervention efficace du premier coup.",
+    benefits: [
+      { title: "Réactivité 24/7", description: "Une astreinte permanente pour répondre à vos urgences, même la nuit et le week-end." },
+      { title: "Camions ateliers", description: "Véhicules tout-terrain équipés des outils nécessaires pour intervenir dans les milieux difficiles." },
+      { title: "Stock embarqué", description: "Pièces les plus courantes à bord pour réduire les délais de remise en marche." },
+      { title: "Traçabilité complète", description: "Rapport d'intervention détaillé remis à chaque prestation pour votre suivi maintenance." },
+    ],
+    process: [
+      { step: "01", title: "Signalement de la panne", description: "Appel ou WhatsApp au numéro d'astreinte. Analyse initiale de la panne à distance." },
+      { step: "02", title: "Déploiement de l'équipe", description: "Mise en route de l'équipe mobile la plus proche avec le matériel adapté." },
+      { step: "03", title: "Intervention sur site", description: "Diagnostic sur place, réparation ou remplacement du composant défaillant." },
+      { step: "04", title: "Remise en service", description: "Test de l'installation, purge du circuit, contrôle des pressions et validation avant départ." },
+    ],
+    applications: ["Chantiers BTP et mines", "Exploitations agricoles", "Ports et zones logistiques", "Usines et sites industriels", "Parcs d'engins de location"],
   },
   {
     id: "training",
@@ -44,6 +72,20 @@ export const services: Service[] = [
       "Documentation complète fournie",
     ],
     image: IMAGES.INDUSTRIAL_TEAM_1_9,
+    intro: "Investir dans la formation de vos équipes, c'est réduire les pannes, prolonger la durée de vie de vos équipements et améliorer la sécurité sur vos sites. Cameroun Hydraulique propose des modules de formation hydraulique adaptés à tous les niveaux, des opérateurs de machines aux ingénieurs de maintenance. Les formations se déroulent dans notre atelier à Douala ou directement chez vous.",
+    benefits: [
+      { title: "Formateurs praticiens", description: "Nos formateurs sont des techniciens expérimentés qui interviennent quotidiennement sur le terrain." },
+      { title: "Modules personnalisés", description: "Chaque programme est adapté à vos équipements, vos secteurs d'activité et le niveau de votre équipe." },
+      { title: "Certification remise", description: "Attestation de formation délivrée à chaque participant à l'issue du module." },
+      { title: "Support continu", description: "Accès à nos techniciens pendant 3 mois après la formation pour toute question technique." },
+    ],
+    process: [
+      { step: "01", title: "Audit des besoins", description: "Analyse du parc machine, du niveau de vos équipes et des problématiques terrain rencontrées." },
+      { step: "02", title: "Construction du programme", description: "Élaboration d'un programme sur mesure avec objectifs pédagogiques clairs." },
+      { step: "03", title: "Formation théorique", description: "Cours sur les principes hydrauliques, les composants, la lecture de schémas et la sécurité." },
+      { step: "04", title: "Mise en pratique", description: "Travaux pratiques sur équipements réels ou sur notre banc pédagogique. Remise des attestations." },
+    ],
+    applications: ["Conducteurs d'engins", "Techniciens de maintenance", "Ingénieurs et chefs de chantier", "Agents SAV", "Responsables techniques"],
   },
   {
     id: "custom",
@@ -58,6 +100,20 @@ export const services: Service[] = [
       "Support après-vente dédié",
     ],
     image: IMAGES.HYDRAULIC_HERO_2_2,
+    intro: "Quand les composants standards ne répondent pas à vos exigences, Cameroun Hydraulique conçoit et fabrique vos groupes hydrauliques et kits flexibles entièrement sur mesure. De la partie mécanique aux commandes électrohydrauliques, notre bureau technique prend en charge votre projet de bout en bout : étude, conception, fabrication, tests et mise en service.",
+    benefits: [
+      { title: "Bureau d'études intégré", description: "Nos ingénieurs étudient votre application et dimensionnent le système optimal (débit, pression, puissance)." },
+      { title: "Fabrication locale", description: "Production en atelier certifié à Douala, réduisant les délais et les coûts logistiques." },
+      { title: "Flexibles taillés sur mesure", description: "Confection de kits complets avec flexibles nettoyés, identifiés et testés à 1,5x la pression nominale." },
+      { title: "Suivi projet", description: "Un ingénieur référent dédié du cahier des charges à la réception sur site." },
+    ],
+    process: [
+      { step: "01", title: "Cahier des charges", description: "Recueil de vos contraintes : pression, débit, température, environnement, normes à respecter." },
+      { step: "02", title: "Étude & Devis", description: "Dimensionnement hydraulique, sélection des composants et chiffrage complet remis sous 5 jours." },
+      { step: "03", title: "Fabrication", description: "Assemblage des groupes, confection des flexibles, câblage électrique et intégration des capteurs." },
+      { step: "04", title: "Tests & Mise en service", description: "Essais de pression et de débit en atelier, puis accompagnement lors de la mise en service sur site." },
+    ],
+    applications: ["Machines-outils et presses industrielles", "Systèmes d'arrosage hydraulique agricole", "Équipements portuaires spéciaux", "Véhicules utilitaires adaptés", "Installations offshore et mining"],
   },
 ];
 
@@ -105,7 +161,7 @@ export const products: Product[] = [
       "Garantie 2 ans",
     ],
     image: IMAGES.CONSTRUCTION_EQUIPMENT_3_6,
-    price: "€245",
+    price: "160 700 FCFA",
   },
   {
     id: "piston-pump",
@@ -135,7 +191,7 @@ export const products: Product[] = [
       "Montage bride SAE",
     ],
     image: IMAGES.CONSTRUCTION_EQUIPMENT_1_4,
-    price: "€1,850",
+    price: "1 213 500 FCFA",
   },
   {
     id: "filter-assembly",
@@ -150,7 +206,7 @@ export const products: Product[] = [
       "Cartouches remplaçables",
     ],
     image: IMAGES.HYDRAULIC_HERO_2_2,
-    price: "€680",
+    price: "446 000 FCFA",
   },
 ];
 
