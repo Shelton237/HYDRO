@@ -1,15 +1,18 @@
 import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ShoppingCart, Trash2, Plus, Minus, Send, User, Building, Mail, Phone } from "lucide-react";
+import { X, ShoppingCart, Trash2, Plus, Minus, Send, User, Building, Mail, Phone, Loader2 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useQuoteStore } from "@/stores/quoteStore";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import { ROUTE_PATHS, COMPANY_INFO } from "@/lib/index";
+import { ROUTE_PATHS } from "@/lib/index";
+import { toast } from "sonner";
+import axios from "axios";
 
 export function QuoteDrawer() {
     const { items, isOpen, setOpen, removeItem, updateQuantity, clearQuote } = useQuoteStore();
+    const [isSending, setIsSending] = useState(false);
     const [formData, setFormData] = useState({
         name: "",
         company: "",
@@ -19,20 +22,38 @@ export function QuoteDrawer() {
 
     const totalItems = items.reduce((acc, i) => acc + i.quantity, 0);
 
-    const subject = encodeURIComponent(`Demande de devis - ${formData.name || "Client"}`);
-    const body = encodeURIComponent(
-        `Bonjour,\n\nJe souhaite recevoir un devis pour les articles suivants :\n\n` +
-        items.map((i) => `- ${i.product.name} (Réf: ${i.product.id}) x${i.quantity}`).join("\n") +
-        `\n\n--- Informations Client ---\n` +
-        `Nom : ${formData.name}\n` +
-        `Entreprise : ${formData.company || "N/A"}\n` +
-        `Email : ${formData.email}\n` +
-        `Téléphone : ${formData.phone}\n\n` +
-        `Cordialement,`
-    );
-    const mailtoLink = `mailto:${COMPANY_INFO.emails[0]}?subject=${subject}&body=${body}`;
+    const canSubmit = formData.name && formData.email && formData.phone && items.length > 0 && !isSending;
 
-    const canSubmit = formData.name && formData.email && formData.phone && items.length > 0;
+    const handleSubmit = async () => {
+        if (!canSubmit) return;
+
+        setIsSending(true);
+        const promise = axios.post("/api/quotation", {
+            formData,
+            items: items.map(item => ({
+                product: {
+                    name: item.product.name,
+                    id: item.product.id
+                },
+                quantity: item.quantity
+            }))
+        });
+
+        toast.promise(promise, {
+            loading: "Envoi de votre demande de devis...",
+            success: () => {
+                setIsSending(false);
+                clearQuote();
+                setOpen(false);
+                return "Votre demande a été envoyée avec succès !";
+            },
+            error: (err) => {
+                setIsSending(false);
+                console.error(err);
+                return "Une erreur est survenue lors de l'envoi. Veuillez réessayer.";
+            }
+        });
+    };
 
     return (
         <>
@@ -45,7 +66,7 @@ export function QuoteDrawer() {
                         animate={{ opacity: 1 }}
                         exit={{ opacity: 0 }}
                         className="fixed inset-0 bg-black/50 z-40 backdrop-blur-sm"
-                        onClick={() => setOpen(false)}
+                        onClick={() => !isSending && setOpen(false)}
                     />
                 )}
             </AnimatePresence>
@@ -70,7 +91,7 @@ export function QuoteDrawer() {
                                     <Badge className="bg-primary text-primary-foreground">{totalItems}</Badge>
                                 )}
                             </div>
-                            <Button variant="ghost" size="icon" onClick={() => setOpen(false)}>
+                            <Button variant="ghost" size="icon" onClick={() => !isSending && setOpen(false)} disabled={isSending}>
                                 <X className="h-5 w-5" />
                             </Button>
                         </div>
@@ -106,15 +127,17 @@ export function QuoteDrawer() {
                                                 <div className="flex items-center gap-3">
                                                     <div className="flex items-center border border-border rounded-md overflow-hidden">
                                                         <button 
-                                                            className="p-1 hover:bg-secondary transition-colors"
+                                                            className="p-1 hover:bg-secondary transition-colors disabled:opacity-50"
                                                             onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                                                            disabled={isSending}
                                                         >
                                                             <Minus className="h-3 w-3" />
                                                         </button>
                                                         <span className="px-2 text-xs font-bold min-w-[20px] text-center">{item.quantity}</span>
                                                         <button 
-                                                            className="p-1 hover:bg-secondary transition-colors"
+                                                            className="p-1 hover:bg-secondary transition-colors disabled:opacity-50"
                                                             onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                                                            disabled={isSending}
                                                         >
                                                             <Plus className="h-3 w-3" />
                                                         </button>
@@ -124,6 +147,7 @@ export function QuoteDrawer() {
                                                         size="icon"
                                                         className="h-7 w-7 text-destructive hover:bg-destructive/10"
                                                         onClick={() => removeItem(item.product.id)}
+                                                        disabled={isSending}
                                                     >
                                                         <Trash2 className="h-3 w-3" />
                                                     </Button>
@@ -151,6 +175,7 @@ export function QuoteDrawer() {
                                                     value={formData.name}
                                                     onChange={(e) => setFormData({ ...formData, name: e.target.value })}
                                                     className="pl-10 h-11"
+                                                    disabled={isSending}
                                                 />
                                             </div>
                                         </div>
@@ -162,6 +187,7 @@ export function QuoteDrawer() {
                                                     value={formData.company}
                                                     onChange={(e) => setFormData({ ...formData, company: e.target.value })}
                                                     className="pl-10 h-11"
+                                                    disabled={isSending}
                                                 />
                                             </div>
                                         </div>
@@ -174,6 +200,7 @@ export function QuoteDrawer() {
                                                     value={formData.email}
                                                     onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                                                     className="pl-10 h-11"
+                                                    disabled={isSending}
                                                 />
                                             </div>
                                         </div>
@@ -186,6 +213,7 @@ export function QuoteDrawer() {
                                                     value={formData.phone}
                                                     onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
                                                     className="pl-10 h-11"
+                                                    disabled={isSending}
                                                 />
                                             </div>
                                         </div>
@@ -200,19 +228,18 @@ export function QuoteDrawer() {
                                 <div className="text-xs text-muted-foreground text-center">
                                     {totalItems} article{totalItems > 1 ? "s" : ""} sélectionné{totalItems > 1 ? "s" : ""}
                                 </div>
-                                <a 
-                                    href={canSubmit ? mailtoLink : undefined} 
-                                    className={`block ${!canSubmit ? "pointer-events-none" : ""}`}
+                                <Button 
+                                    className="w-full gap-2 text-base py-6 font-bold"
+                                    disabled={!canSubmit}
+                                    onClick={handleSubmit}
                                 >
-                                    <Button 
-                                        className="w-full gap-2 text-base py-6 font-bold"
-                                        disabled={!canSubmit}
-                                    >
-                                        <Send className="h-4 w-4" />
-                                        Envoyer la demande
-                                    </Button>
-                                </a>
-                                <Button variant="ghost" size="sm" className="w-full text-muted-foreground" onClick={clearQuote}>
+                                    {isSending ? (
+                                        <><Loader2 className="h-4 w-4 animate-spin" /> Envoi en cours...</>
+                                    ) : (
+                                        <><Send className="h-4 w-4" /> Envoyer la demande</>
+                                    )}
+                                </Button>
+                                <Button variant="ghost" size="sm" className="w-full text-muted-foreground" onClick={clearQuote} disabled={isSending}>
                                     Vider la liste
                                 </Button>
                             </div>
