@@ -1,13 +1,11 @@
-import { useState } from "react";
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
 import { Search, Filter, Package, ChevronRight } from "lucide-react";
-import { Link } from "react-router-dom";
-import { products } from "@/data/index";
+import { products as initialProducts } from "@/data/index";
 import { ProductCard } from "@/components/Cards";
 import { IMAGES } from "@/assets/images";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { ROUTE_PATHS } from "@/lib/index";
 import {
   Select,
   SelectContent,
@@ -15,31 +13,43 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { springPresets, fadeInUp, staggerContainer, staggerItem } from "@/lib/motion";
-
-const categories = [
-  "Toutes catégories",
-  "Unités hydrauliques",
-  "Équipements de test",
-  "Composants de sécurité",
-  "Pompes hydrauliques",
-  "Moteurs hydrauliques",
-  "Filtration",
-];
+import { springPresets, staggerContainer, staggerItem } from "@/lib/motion";
+import type { Product } from "@/lib/index";
 
 export default function Products() {
+  const [catalog, setCatalog] = useState<Product[]>(() => {
+    const saved = localStorage.getItem("hydro_catalog");
+    return saved ? JSON.parse(saved) : initialProducts;
+  });
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Toutes catégories");
 
-  const filteredProducts = products.filter((product) => {
-    const matchesSearch =
-      product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-      product.description.toLowerCase().includes(searchQuery.toLowerCase());
-    const matchesCategory =
-      selectedCategory === "Toutes catégories" ||
-      product.category === selectedCategory;
-    return matchesSearch && matchesCategory;
-  });
+  useEffect(() => {
+    // Sync with localStorage if it changes in another tab/window
+    const handleStorage = () => {
+      const saved = localStorage.getItem("hydro_catalog");
+      if (saved) setCatalog(JSON.parse(saved));
+    };
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
+
+  const categories = useMemo(() => {
+    const base = Array.from(new Set(catalog.map((p) => p.category)));
+    return ["Toutes catégories", ...base.sort()];
+  }, [catalog]);
+
+  const filteredProducts = useMemo(() => {
+    return catalog.filter((product) => {
+      const matchesSearch =
+        product.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
+        product.description.toLowerCase().includes(searchQuery.toLowerCase());
+      const matchesCategory =
+        selectedCategory === "Toutes catégories" ||
+        product.category === selectedCategory;
+      return matchesSearch && matchesCategory;
+    });
+  }, [catalog, searchQuery, selectedCategory]);
 
   return (
     <div className="min-h-screen">
@@ -67,7 +77,7 @@ export default function Products() {
               Équipements Hydrauliques
             </h1>
             <p className="text-lg md:text-xl text-muted-foreground">
-              Plus de 25 000 articles disponibles. Composants de qualité pour tous vos besoins hydrauliques.
+              Plus de {catalog.length > 25000 ? catalog.length : "25 000"} articles disponibles. Composants de qualité pour tous vos besoins hydrauliques.
             </p>
           </motion.div>
         </div>
@@ -89,11 +99,11 @@ export default function Products() {
                   placeholder="Rechercher un produit..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 h-12"
+                  className="pl-10 h-12 rounded-xl"
                 />
               </div>
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full md:w-64 h-12">
+                <SelectTrigger className="w-full md:w-64 h-12 rounded-xl">
                   <Filter className="w-4 h-4 mr-2" />
                   <SelectValue />
                 </SelectTrigger>
@@ -111,10 +121,6 @@ export default function Products() {
               <p>
                 {filteredProducts.length} produit{filteredProducts.length > 1 ? "s" : ""} trouvé{filteredProducts.length > 1 ? "s" : ""}
               </p>
-              <Button variant="ghost" size="sm" className="gap-2">
-                Demander un devis
-                <ChevronRight className="w-4 h-4" />
-              </Button>
             </div>
           </motion.div>
         </div>
@@ -152,7 +158,7 @@ export default function Products() {
         </div>
       </section>
 
-      <section className="py-16 bg-muted/30">
+      <section className="py-24 bg-muted/30">
         <div className="container mx-auto px-4">
           <motion.div
             initial={{ opacity: 0, y: 24 }}
@@ -168,11 +174,11 @@ export default function Products() {
               Notre équipe technique est à votre disposition pour vous conseiller et trouver la solution adaptée à vos besoins.
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button size="lg" className="gap-2">
+              <Button size="lg" className="gap-2 rounded-xl h-14 px-8">
                 Contactez-nous
                 <ChevronRight className="w-4 h-4" />
               </Button>
-              <Button size="lg" variant="outline">
+              <Button size="lg" variant="outline" className="rounded-xl h-14 px-8">
                 Télécharger le catalogue
               </Button>
             </div>

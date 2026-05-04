@@ -44,9 +44,10 @@ export function Layout({ children }: LayoutProps) {
   const [searchOpen, setSearchOpen] = useState(false);
   const [currentLanguage, setCurrentLanguage] = useState(LANGUAGES.FR);
   const [scrolled, setScrolled] = useState(false);
-  const [activeDropdown, setActiveDropdown] = useState<string | null>(null);
+  const [activeDropdown, setActiveDropdown] = useState<"services" | "sectors" | null>(null);
   const [mobileExpanded, setMobileExpanded] = useState<string | null>(null);
   const dropdownRef = useRef<HTMLDivElement>(null);
+  const dropdownCloseTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const { items, toggleOpen } = useQuoteStore();
   const totalItems = items.reduce((acc, i) => acc + i.quantity, 0);
   const location = useLocation();
@@ -69,7 +70,12 @@ export function Layout({ children }: LayoutProps) {
       }
     };
     document.addEventListener("mousedown", handleClickOutside);
-    return () => document.removeEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+      if (dropdownCloseTimeout.current) {
+        clearTimeout(dropdownCloseTimeout.current);
+      }
+    };
   }, []);
 
   const languageLabels = {
@@ -99,6 +105,23 @@ export function Layout({ children }: LayoutProps) {
       { label: "Certifications", href: ROUTE_PATHS.ABOUT },
       { label: "Carrières", href: ROUTE_PATHS.CONTACT },
     ],
+  };
+
+  const openDropdown = (type: "services" | "sectors") => {
+    if (dropdownCloseTimeout.current) {
+      clearTimeout(dropdownCloseTimeout.current);
+      dropdownCloseTimeout.current = null;
+    }
+    setActiveDropdown(type);
+  };
+
+  const closeDropdownWithDelay = () => {
+    if (dropdownCloseTimeout.current) {
+      clearTimeout(dropdownCloseTimeout.current);
+    }
+    dropdownCloseTimeout.current = setTimeout(() => {
+      setActiveDropdown(null);
+    }, 120);
   };
 
   return (
@@ -219,13 +242,12 @@ export function Layout({ children }: LayoutProps) {
               </NavLink>
 
               {/* Services mega dropdown */}
-              <div
-                className="relative"
-                onMouseEnter={() => setActiveDropdown("services")}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
+              <div className="relative" onMouseLeave={closeDropdownWithDelay}>
                 <button
                   type="button"
+                  onMouseEnter={() => openDropdown("services")}
+                  onFocus={() => openDropdown("services")}
+                  onMouseLeave={closeDropdownWithDelay}
                   className={`relative flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md group
                     ${location.pathname.startsWith(ROUTE_PATHS.SERVICES) ? "text-primary" : "text-foreground/70 hover:text-foreground"}`}
                 >
@@ -236,6 +258,8 @@ export function Layout({ children }: LayoutProps) {
                 </button>
                 {/* Services Mega Panel */}
                 <div
+                  onMouseEnter={() => openDropdown("services")}
+                  onMouseLeave={closeDropdownWithDelay}
                   className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-[520px] bg-white dark:bg-card border border-border rounded-xl shadow-2xl shadow-black/10 overflow-hidden transition-all duration-200 origin-top
                     ${activeDropdown === "services" ? "opacity-100 scale-y-100 pointer-events-auto" : "opacity-0 scale-y-95 pointer-events-none"}`}
                 >
@@ -271,13 +295,12 @@ export function Layout({ children }: LayoutProps) {
               </div>
 
               {/* Secteurs dropdown */}
-              <div
-                className="relative"
-                onMouseEnter={() => setActiveDropdown("sectors")}
-                onMouseLeave={() => setActiveDropdown(null)}
-              >
+              <div className="relative" onMouseLeave={closeDropdownWithDelay}>
                 <button
                   type="button"
+                  onMouseEnter={() => openDropdown("sectors")}
+                  onFocus={() => openDropdown("sectors")}
+                  onMouseLeave={closeDropdownWithDelay}
                   className={`relative flex items-center gap-1 px-3 py-2 text-sm font-medium transition-colors duration-200 rounded-md group
                     ${location.pathname.startsWith(ROUTE_PATHS.SECTORS) ? "text-primary" : "text-foreground/70 hover:text-foreground"}`}
                 >
@@ -287,6 +310,8 @@ export function Layout({ children }: LayoutProps) {
                     ${location.pathname.startsWith(ROUTE_PATHS.SECTORS) ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
                 </button>
                 <div
+                  onMouseEnter={() => openDropdown("sectors")}
+                  onMouseLeave={closeDropdownWithDelay}
                   className={`absolute top-full left-1/2 -translate-x-1/2 mt-2 w-52 bg-white dark:bg-card border border-border rounded-xl shadow-2xl shadow-black/10 overflow-hidden transition-all duration-200 origin-top
                     ${activeDropdown === "sectors" ? "opacity-100 scale-y-100 pointer-events-auto" : "opacity-0 scale-y-95 pointer-events-none"}`}
                 >
@@ -623,6 +648,14 @@ export function Layout({ children }: LayoutProps) {
                 >
                   <SiX className="h-5 w-5" />
                 </a>
+              </div>
+              <div className="mt-6">
+                <Link 
+                  to={ROUTE_PATHS.ADMIN_PRODUCTS}
+                  className="text-[10px] uppercase tracking-widest text-muted-foreground/30 hover:text-primary transition-colors font-bold"
+                >
+                  Administration Système
+                </Link>
               </div>
             </div>
 

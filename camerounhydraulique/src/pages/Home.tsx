@@ -1,14 +1,34 @@
+import { useState, useMemo, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, CheckCircle2, Package, Users, Award, TrendingUp } from "lucide-react";
+import { ArrowRight, CheckCircle2, Package, Users, Award, TrendingUp, ChevronRight } from "lucide-react";
 import { Link } from "react-router-dom";
 import { IMAGES } from "@/assets/images";
 import { ROUTE_PATHS } from "@/lib/index";
-import { services, stats, sectors } from "@/data/index";
-import { ServiceCard, StatCard } from "@/components/Cards";
+import { services, stats, sectors, products as initialProducts } from "@/data/index";
+import { ServiceCard, StatCard, ProductCard } from "@/components/Cards";
 import { Button } from "@/components/ui/button";
 import { springPresets, fadeInUp, staggerContainer, staggerItem } from "@/lib/motion";
+import type { Product } from "@/lib/index";
 
 export default function Home() {
+  const [catalog, setCatalog] = useState<Product[]>(() => {
+    const saved = localStorage.getItem("hydro_catalog");
+    return saved ? JSON.parse(saved) : initialProducts;
+  });
+
+  useEffect(() => {
+    const handleStorage = () => {
+      const saved = localStorage.getItem("hydro_catalog");
+      if (saved) setCatalog(JSON.parse(saved));
+    };
+    window.addEventListener("storage", handleStorage);
+    return () => window.removeEventListener("storage", handleStorage);
+  }, []);
+
+  const featuredProducts = useMemo(() => {
+    return catalog.slice(0, 3);
+  }, [catalog]);
+
   return (
     <div className="min-h-screen">
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden">
@@ -54,13 +74,13 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...springPresets.gentle, delay: 0.3 }}
             >
-              <Button asChild size="lg" className="text-lg px-8">
+              <Button asChild size="lg" className="text-lg px-8 rounded-xl h-14">
                 <Link to={ROUTE_PATHS.SERVICES}>
                   Nos services
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="text-lg px-8">
+              <Button asChild size="lg" variant="outline" className="text-lg px-8 rounded-xl h-14">
                 <Link to={ROUTE_PATHS.CONTACT}>Nous contacter</Link>
               </Button>
             </motion.div>
@@ -74,6 +94,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Stats Section */}
       <section className="py-24 bg-muted/30">
         <div className="container mx-auto px-4">
           <motion.div
@@ -92,6 +113,7 @@ export default function Home() {
         </div>
       </section>
 
+      {/* Sectors Section */}
       <section className="py-24">
         <div className="container mx-auto px-4">
           <motion.div
@@ -149,7 +171,55 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-24 bg-muted/30">
+      {/* Featured Products Section */}
+      <section className="py-24 bg-muted/20">
+        <div className="container mx-auto px-4">
+          <div className="flex flex-col md:flex-row justify-between items-end mb-16 gap-6">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={springPresets.gentle}
+              className="max-w-2xl"
+            >
+              <h2 className="text-4xl md:text-5xl font-bold mb-4">Produits Phares</h2>
+              <p className="text-xl text-muted-foreground">
+                Decouvrez une selection de nos composants hydrauliques les plus demandes
+              </p>
+            </motion.div>
+            <motion.div
+              initial={{ opacity: 0, x: 20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              viewport={{ once: true }}
+              transition={springPresets.gentle}
+            >
+              <Button asChild variant="ghost" className="text-primary hover:bg-primary/10 gap-2">
+                <Link to={ROUTE_PATHS.PRODUCTS}>
+                  Voir tout le catalogue
+                  <ArrowRight size={20} />
+                </Link>
+              </Button>
+            </motion.div>
+          </div>
+
+          <motion.div
+            variants={staggerContainer}
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: true }}
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
+          >
+            {featuredProducts.map((product) => (
+              <motion.div key={product.id} variants={staggerItem}>
+                <ProductCard product={product} />
+              </motion.div>
+            ))}
+          </motion.div>
+        </div>
+      </section>
+
+      {/* Services Section */}
+      <section className="py-24">
         <div className="container mx-auto px-4">
           <motion.div
             className="text-center mb-16"
@@ -185,7 +255,7 @@ export default function Home() {
             viewport={{ once: true }}
             transition={springPresets.gentle}
           >
-            <Button asChild size="lg" className="text-lg px-8">
+            <Button asChild size="lg" className="text-lg px-8 rounded-xl h-14">
               <Link to={ROUTE_PATHS.SERVICES}>
                 Decouvrir tous nos services
                 <ArrowRight className="ml-2 h-5 w-5" />
@@ -195,7 +265,8 @@ export default function Home() {
         </div>
       </section>
 
-      <section className="py-24">
+      {/* Why Us Section */}
+      <section className="py-24 bg-muted/30">
         <div className="container mx-auto px-4">
           <div className="grid lg:grid-cols-2 gap-12 items-center">
             <motion.div
@@ -233,7 +304,7 @@ export default function Home() {
               </div>
 
               <div className="mt-8">
-                <Button asChild size="lg" className="text-lg px-8">
+                <Button asChild size="lg" className="text-lg px-8 rounded-xl h-14">
                   <Link to={ROUTE_PATHS.ABOUT}>
                     En savoir plus sur Cameroun Hydraulique
                     <ArrowRight className="ml-2 h-5 w-5" />
@@ -253,27 +324,28 @@ export default function Home() {
                 <img
                   src={IMAGES.INDUSTRIAL_TEAM_1_9}
                   alt="Équipe Cameroun Hydraulique"
-                  className="rounded-2xl shadow-lg w-full h-64 object-cover"
+                  className="rounded-3xl shadow-lg w-full h-64 object-cover"
                 />
                 <img
                   src={IMAGES.CONSTRUCTION_EQUIPMENT_3_6}
                   alt="Équipements hydrauliques"
-                  className="rounded-2xl shadow-lg w-full h-64 object-cover mt-8"
+                  className="rounded-3xl shadow-lg w-full h-64 object-cover mt-8"
                 />
               </div>
-              <div className="absolute -bottom-6 -left-6 bg-primary text-primary-foreground rounded-2xl p-6 shadow-xl max-w-xs">
+              <div className="absolute -bottom-6 -left-6 bg-primary text-primary-foreground rounded-3xl p-8 shadow-xl max-w-xs">
                 <p className="text-4xl font-bold mb-1">Depuis 2008</p>
-                <p className="text-sm opacity-90">au service des industriels camerounais</p>
+                <p className="text-sm opacity-90 uppercase tracking-widest font-bold">au service des industriels</p>
               </div>
             </motion.div>
           </div>
         </div>
       </section>
 
+      {/* CTA Section */}
       <section className="py-24 bg-primary text-primary-foreground">
-        <div className="container mx-auto px-4">
+        <div className="container mx-auto px-4 text-center">
           <motion.div
-            className="max-w-4xl mx-auto text-center"
+            className="max-w-4xl mx-auto"
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
@@ -284,13 +356,13 @@ export default function Home() {
               Contactez nos experts pour une etude personnalisee de vos besoins hydrauliques
             </p>
             <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button asChild size="lg" variant="secondary" className="text-lg px-8">
+              <Button asChild size="lg" variant="secondary" className="text-lg px-8 rounded-xl h-14">
                 <Link to={ROUTE_PATHS.CONTACT}>
                   Demander un devis
                   <ArrowRight className="ml-2 h-5 w-5" />
                 </Link>
               </Button>
-              <Button asChild size="lg" variant="outline" className="text-lg px-8 bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
+              <Button asChild size="lg" variant="outline" className="text-lg px-8 rounded-xl h-14 bg-transparent border-primary-foreground text-primary-foreground hover:bg-primary-foreground/10">
                 <Link to={ROUTE_PATHS.PRODUCTS}>Voir le catalogue</Link>
               </Button>
             </div>
