@@ -91,29 +91,23 @@ export interface SectorInfo {
 }
 
 export const COMPANY_INFO = {
-  name: "Cameroun Hydraulique",
+  name: "CAMEROUN.HYDRAULIQUE SARL*",
   tagline: "Vente d'accessoires, flexibles sur mesure et prestations hydrauliques au Cameroun",
-  phones: ["+237 674 048 225", "+237 696 781 077"],
-  emails: ["contact@camerounhydraulique.com", "cameroun.hydraulique@yahoo.fr"],
+  phones: ["(+237) 696 78 10 77", "(+237) 674 04 82 25"],
+  emails: ["contact@camerounhydrauliques.com", "cameroun.hydraulique@yahoo.fr"],
   offices: [
     {
       city: "Douala",
       addresses: [
-        "Texaco Nkolouloun et Carrefour Photo Golden (face Boulangerie de luxe)",
-        "Agence Yassa : entree salle de fete BOCOM (2eme entree apres la station BOCOM)",
+        "916 Boulevard des Nations Unies a côté de MRS nkololoun",
       ],
-      bp: "BP 9593 Douala Cameroun",
-    },
-    {
-      city: "Yaounde",
-      addresses: ["Face Tradex Olembe"],
-      bp: undefined,
+      bp: "BP 9593 Douala",
     },
   ],
   hours: {
     weekdays: "8h00 - 18h00",
     saturday: "9h00 - 12h00",
-    sunday: "Ferme",
+    sunday: "Fermé",
   },
   social: {
     linkedin: "https://linkedin.com/company/cameroun-hydraulique",
