@@ -357,14 +357,14 @@ export const stats: Stat[] = [
   },
   {
     id: "team",
-    value: "150",
+    value: "14",
     label: "Collaborateurs",
     icon: "Users",
     description: "Équipe d'experts dédiés à votre service",
   },
   {
     id: "specialists",
-    value: "40",
+    value: "4",
     label: "Spécialistes techniques",
     icon: "Award",
     description: "Ingénieurs et techniciens certifiés",
