@@ -103,6 +103,10 @@ export const COMPANY_INFO = {
       ],
       bp: "BP 9593 Douala",
     },
+    {
+      city: "Yaounde",
+      addresses: ["Face Tradex Olembe"],
+    },
   ],
   hours: {
     weekdays: "8h00 - 18h00",
