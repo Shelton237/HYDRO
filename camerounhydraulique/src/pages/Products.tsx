@@ -96,14 +96,14 @@ export default function Products() {
                 <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-5 h-5 text-muted-foreground" />
                 <Input
                   type="text"
-                  placeholder="Rechercher un produit..."
+                  placeholder="Rechercher un produit ou une spécification..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="pl-10 h-12 rounded-xl"
+                  className="pl-10 h-12 rounded-xl border-border/50 focus:ring-primary/20 transition-all"
                 />
               </div>
               <Select value={selectedCategory} onValueChange={setSelectedCategory}>
-                <SelectTrigger className="w-full md:w-64 h-12 rounded-xl">
+                <SelectTrigger className="w-full md:w-64 h-12 rounded-xl border-border/50">
                   <Filter className="w-4 h-4 mr-2" />
                   <SelectValue />
                 </SelectTrigger>
@@ -125,6 +125,68 @@ export default function Products() {
           </motion.div>
         </div>
       </section>
+
+      {/* Category Overview - Sinopulse Inspired */}
+      {selectedCategory === "Toutes catégories" && !searchQuery && (
+        <section className="py-20 bg-muted/20">
+          <div className="container mx-auto px-4">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl font-bold mb-4">Nos Gammes de Produits</h2>
+              <p className="text-muted-foreground max-w-2xl mx-auto">
+                Explorez notre catalogue complet de solutions hydrauliques haute performance adaptées à vos exigences techniques.
+              </p>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
+              {[
+                {
+                  title: "Pompes & Moteurs",
+                  desc: "Pompes à pistons, engrenages et moteurs orbitaux haute performance pour toutes vos transmissions hydrostatiques.",
+                  image: IMAGES.HYDRAULIC_HERO_1_1,
+                  cat: "Pompes hydrauliques"
+                },
+                {
+                  title: "Filtration & Fluides",
+                  desc: "Systèmes de filtration complets, cartouches et accessoires pour garantir la propreté de vos circuits et prolonger leur vie.",
+                  image: IMAGES.HYDRAULIC_HERO_2_2,
+                  cat: "Filtration"
+                },
+                {
+                  title: "Composants & Distribution",
+                  desc: "Distributeurs, valves de sécurité, échangeurs et accessoires de raccordement pour un contrôle précis de vos installations.",
+                  image: IMAGES.CONSTRUCTION_EQUIPMENT_1_4,
+                  cat: "Distribution"
+                }
+              ].map((category, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: idx * 0.1 }}
+                  className="group cursor-pointer"
+                  onClick={() => setSelectedCategory(category.cat)}
+                >
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-2xl mb-6 shadow-md transition-shadow group-hover:shadow-xl">
+                    <img
+                      src={category.image}
+                      alt={category.title}
+                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-6">
+                      <Button variant="secondary" className="w-full gap-2">
+                        Découvrir la gamme <ChevronRight className="w-4 h-4" />
+                      </Button>
+                    </div>
+                  </div>
+                  <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">{category.title}</h3>
+                  <p className="text-muted-foreground leading-relaxed">{category.desc}</p>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </section>
+      )}
 
       <section className="py-16">
         <div className="container mx-auto px-4">

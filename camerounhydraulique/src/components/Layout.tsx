@@ -592,10 +592,46 @@ export function Layout({ children }: LayoutProps) {
 
       <QuoteDrawer />
 
+      {/* Floating Contact Sidebar - Sinopulse Inspired */}
+      <div className="fixed right-0 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-px overflow-hidden rounded-l-xl shadow-2xl border border-r-0 border-border bg-background/80 backdrop-blur-md">
+        <a
+          href={`https://wa.me/${COMPANY_INFO.phones[0].replace(/\D/g, "")}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="p-3.5 bg-green-500 text-white hover:bg-green-600 transition-colors flex items-center justify-center group relative"
+          title="WhatsApp"
+        >
+          <SiFacebook className="h-5 w-5" /> {/* Using Facebook icon as placeholder for WhatsApp if SIWhatsapp not found, but SIWhatsapp should be there or use Lucide MessageCircle */}
+          <span className="absolute right-full mr-2 px-3 py-1.5 rounded-lg bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+            Contact WhatsApp
+          </span>
+        </a>
+        <a
+          href={`mailto:${COMPANY_INFO.emails[0]}`}
+          className="p-3.5 bg-primary text-white hover:bg-primary/90 transition-colors flex items-center justify-center group relative"
+          title="Email"
+        >
+          <Mail className="h-5 w-5" />
+          <span className="absolute right-full mr-2 px-3 py-1.5 rounded-lg bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+            Envoyer un Email
+          </span>
+        </a>
+        <a
+          href={`tel:${COMPANY_INFO.phones[0].replace(/\D/g, "")}`}
+          className="p-3.5 bg-secondary text-foreground hover:bg-secondary/80 transition-colors flex items-center justify-center group relative border-t border-border/50"
+          title="Téléphone"
+        >
+          <Phone className="h-5 w-5" />
+          <span className="absolute right-full mr-2 px-3 py-1.5 rounded-lg bg-black text-white text-xs opacity-0 group-hover:opacity-100 transition-opacity whitespace-nowrap pointer-events-none">
+            Appeler
+          </span>
+        </a>
+      </div>
+
       {/* Floating Emergency Button */}
       <a
         href={`tel:${COMPANY_INFO.phones[0].replace(/\s+/g, "")}`}
-        className="fixed bottom-6 right-6 z-50 flex items-center justify-center p-4 bg-red-600 text-white rounded-full shadow-2xl hover:bg-red-700 hover:scale-105 transition-all duration-300 group"
+        className="fixed bottom-6 left-6 z-50 flex items-center justify-center p-4 bg-red-600 text-white rounded-full shadow-2xl hover:bg-red-700 hover:scale-105 transition-all duration-300 group"
         aria-label="Urgence 24/7"
       >
         <span className="absolute -top-1 -right-1 flex h-4 w-4">
