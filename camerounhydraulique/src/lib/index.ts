@@ -106,7 +106,7 @@ export const COMPANY_INFO = {
   ],
   hours: {
     weekdays: "8h00 - 18h00",
-    saturday: "9h00 - 12h00",
+    saturday: "8h00 - 15h00",
     sunday: "Fermé",
   },
   social: {
