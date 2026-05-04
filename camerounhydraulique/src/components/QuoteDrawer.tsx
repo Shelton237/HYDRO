@@ -1,23 +1,38 @@
+import { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
-import { X, ShoppingCart, Trash2, Plus, Minus, Send } from "lucide-react";
+import { X, ShoppingCart, Trash2, Plus, Minus, Send, User, Building, Mail, Phone } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useQuoteStore } from "@/stores/quoteStore";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import { ROUTE_PATHS, COMPANY_INFO } from "@/lib/index";
 
 export function QuoteDrawer() {
     const { items, isOpen, setOpen, removeItem, updateQuantity, clearQuote } = useQuoteStore();
+    const [formData, setFormData] = useState({
+        name: "",
+        company: "",
+        email: "",
+        phone: "",
+    });
 
     const totalItems = items.reduce((acc, i) => acc + i.quantity, 0);
 
-    const subject = encodeURIComponent("Demande de devis – Cameroun Hydraulique");
+    const subject = encodeURIComponent(`Demande de devis - ${formData.name || "Client"}`);
     const body = encodeURIComponent(
-        `Bonjour,\n\nJe souhaite recevoir un devis pour les articles suivants :\n\n${items
-            .map((i) => `- ${i.product.name} (Réf: ${i.product.id}) x${i.quantity}`)
-            .join("\n")}\n\nCordialement,`
+        `Bonjour,\n\nJe souhaite recevoir un devis pour les articles suivants :\n\n` +
+        items.map((i) => `- ${i.product.name} (Réf: ${i.product.id}) x${i.quantity}`).join("\n") +
+        `\n\n--- Informations Client ---\n` +
+        `Nom : ${formData.name}\n` +
+        `Entreprise : ${formData.company || "N/A"}\n` +
+        `Email : ${formData.email}\n` +
+        `Téléphone : ${formData.phone}\n\n` +
+        `Cordialement,`
     );
     const mailtoLink = `mailto:${COMPANY_INFO.emails[0]}?subject=${subject}&body=${body}`;
+
+    const canSubmit = formData.name && formData.email && formData.phone && items.length > 0;
 
     return (
         <>
@@ -60,80 +75,141 @@ export function QuoteDrawer() {
                             </Button>
                         </div>
 
-                        {/* Items */}
-                        <div className="flex-1 overflow-y-auto p-6 space-y-4">
-                            {items.length === 0 ? (
-                                <div className="flex flex-col items-center justify-center h-full text-center text-muted-foreground gap-4">
-                                    <ShoppingCart className="h-16 w-16 opacity-30" />
-                                    <p className="text-lg font-medium">Votre demande est vide</p>
-                                    <p className="text-sm">Ajoutez des produits depuis notre catalogue pour demander un devis.</p>
-                                    <Button asChild variant="outline" onClick={() => setOpen(false)}>
-                                        <Link to={ROUTE_PATHS.PRODUCTS}>Voir le catalogue</Link>
-                                    </Button>
-                                </div>
-                            ) : (
-                                items.map((item) => (
-                                    <motion.div
-                                        key={item.product.id}
-                                        layout
-                                        initial={{ opacity: 0, y: 10 }}
-                                        animate={{ opacity: 1, y: 0 }}
-                                        exit={{ opacity: 0, y: -10 }}
-                                        className="flex gap-4 p-4 bg-card rounded-xl border border-border"
-                                    >
-                                        {item.product.image && (
-                                            <img
-                                                src={item.product.image}
-                                                alt={item.product.name}
-                                                className="w-20 h-20 object-cover rounded-lg flex-shrink-0"
-                                            />
-                                        )}
-                                        <div className="flex-1 min-w-0">
-                                            <Badge variant="secondary" className="text-xs mb-1">{item.product.category}</Badge>
-                                            <p className="font-semibold text-sm leading-tight">{item.product.name}</p>
-                                            <div className="flex items-center gap-2 mt-3">
-                                                <Button
-                                                    variant="outline"
-                                                    size="icon"
-                                                    className="h-7 w-7"
-                                                    onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                                                >
-                                                    <Minus className="h-3 w-3" />
-                                                </Button>
-                                                <span className="font-bold w-8 text-center">{item.quantity}</span>
-                                                <Button
-                                                    variant="outline"
-                                                    size="icon"
-                                                    className="h-7 w-7"
-                                                    onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                                                >
-                                                    <Plus className="h-3 w-3" />
-                                                </Button>
-                                                <Button
-                                                    variant="ghost"
-                                                    size="icon"
-                                                    className="h-7 w-7 ml-auto text-destructive hover:text-destructive"
-                                                    onClick={() => removeItem(item.product.id)}
-                                                >
-                                                    <Trash2 className="h-3 w-3" />
-                                                </Button>
+                        {/* Content */}
+                        <div className="flex-1 overflow-y-auto">
+                            {/* Items List */}
+                            <div className="p-6 space-y-4">
+                                {items.length === 0 ? (
+                                    <div className="flex flex-col items-center justify-center py-12 text-center text-muted-foreground gap-4">
+                                        <ShoppingCart className="h-16 w-16 opacity-30" />
+                                        <p className="text-lg font-medium">Votre demande est vide</p>
+                                        <Button asChild variant="outline" onClick={() => setOpen(false)}>
+                                            <Link to={ROUTE_PATHS.PRODUCTS}>Voir le catalogue</Link>
+                                        </Button>
+                                    </div>
+                                ) : (
+                                    items.map((item) => (
+                                        <motion.div
+                                            key={item.product.id}
+                                            layout
+                                            className="flex gap-4 p-4 bg-card rounded-xl border border-border shadow-sm"
+                                        >
+                                            {item.product.image && (
+                                                <img
+                                                    src={item.product.image}
+                                                    alt={item.product.name}
+                                                    className="w-16 h-16 object-cover rounded-lg flex-shrink-0"
+                                                />
+                                            )}
+                                            <div className="flex-1 min-w-0">
+                                                <p className="font-semibold text-sm leading-tight mb-2 truncate">{item.product.name}</p>
+                                                <div className="flex items-center gap-3">
+                                                    <div className="flex items-center border border-border rounded-md overflow-hidden">
+                                                        <button 
+                                                            className="p-1 hover:bg-secondary transition-colors"
+                                                            onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
+                                                        >
+                                                            <Minus className="h-3 w-3" />
+                                                        </button>
+                                                        <span className="px-2 text-xs font-bold min-w-[20px] text-center">{item.quantity}</span>
+                                                        <button 
+                                                            className="p-1 hover:bg-secondary transition-colors"
+                                                            onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
+                                                        >
+                                                            <Plus className="h-3 w-3" />
+                                                        </button>
+                                                    </div>
+                                                    <Button
+                                                        variant="ghost"
+                                                        size="icon"
+                                                        className="h-7 w-7 text-destructive hover:bg-destructive/10"
+                                                        onClick={() => removeItem(item.product.id)}
+                                                    >
+                                                        <Trash2 className="h-3 w-3" />
+                                                    </Button>
+                                                </div>
+                                            </div>
+                                        </motion.div>
+                                    ))
+                                )}
+                            </div>
+
+                            {/* Contact Form */}
+                            {items.length > 0 && (
+                                <div className="px-6 py-8 bg-muted/30 border-y border-border space-y-6">
+                                    <div className="space-y-1">
+                                        <h3 className="font-bold text-lg">Vos coordonnées</h3>
+                                        <p className="text-xs text-muted-foreground">Veuillez remplir ces informations pour finaliser votre demande.</p>
+                                    </div>
+
+                                    <div className="space-y-4">
+                                        <div className="space-y-2">
+                                            <div className="relative">
+                                                <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                                <Input 
+                                                    placeholder="Nom complet *"
+                                                    value={formData.name}
+                                                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                                                    className="pl-10 h-11"
+                                                />
                                             </div>
                                         </div>
-                                    </motion.div>
-                                ))
+                                        <div className="space-y-2">
+                                            <div className="relative">
+                                                <Building className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                                <Input 
+                                                    placeholder="Entreprise"
+                                                    value={formData.company}
+                                                    onChange={(e) => setFormData({ ...formData, company: e.target.value })}
+                                                    className="pl-10 h-11"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <div className="relative">
+                                                <Mail className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                                <Input 
+                                                    type="email"
+                                                    placeholder="Email *"
+                                                    value={formData.email}
+                                                    onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+                                                    className="pl-10 h-11"
+                                                />
+                                            </div>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <div className="relative">
+                                                <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                                                <Input 
+                                                    type="tel"
+                                                    placeholder="Téléphone / WhatsApp *"
+                                                    value={formData.phone}
+                                                    onChange={(e) => setFormData({ ...formData, phone: e.target.value })}
+                                                    className="pl-10 h-11"
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
                             )}
                         </div>
 
                         {/* Footer */}
                         {items.length > 0 && (
-                            <div className="p-6 border-t border-border space-y-3">
-                                <div className="text-sm text-muted-foreground text-center">
-                                    {totalItems} article{totalItems > 1 ? "s" : ""} dans votre demande
+                            <div className="p-6 border-t border-border space-y-3 bg-background">
+                                <div className="text-xs text-muted-foreground text-center">
+                                    {totalItems} article{totalItems > 1 ? "s" : ""} sélectionné{totalItems > 1 ? "s" : ""}
                                 </div>
-                                <a href={mailtoLink} className="block">
-                                    <Button className="w-full gap-2 text-base py-6">
+                                <a 
+                                    href={canSubmit ? mailtoLink : undefined} 
+                                    className={`block ${!canSubmit ? "pointer-events-none" : ""}`}
+                                >
+                                    <Button 
+                                        className="w-full gap-2 text-base py-6 font-bold"
+                                        disabled={!canSubmit}
+                                    >
                                         <Send className="h-4 w-4" />
-                                        Envoyer la demande de devis
+                                        Envoyer la demande
                                     </Button>
                                 </a>
                                 <Button variant="ghost" size="sm" className="w-full text-muted-foreground" onClick={clearQuote}>
