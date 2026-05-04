@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { Tractor, HardHat, Truck, Ship, Factory } from "lucide-react";
+import { Tractor, HardHat, Truck, Ship, Factory, Filter, Settings } from "lucide-react";
 import { IMAGES } from "@/assets/images";
 import { sectors } from "@/data/index";
 import { SECTORS } from "@/lib/index";
@@ -11,6 +11,8 @@ const sectorIcons = {
   [SECTORS.TRANSPORT]: Truck,
   [SECTORS.MARITIME]: Ship,
   [SECTORS.INDUSTRIAL]: Factory,
+  [SECTORS.FILTRATION]: Filter,
+  [SECTORS.TRUCK_PARTS]: Settings,
 };
 
 export default function Sectors() {

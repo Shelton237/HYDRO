@@ -444,4 +444,30 @@ export const sectors: SectorInfo[] = [
     ],
     image: IMAGES.INDUSTRIAL_TEAM_1_9,
   },
+  {
+    id: SECTORS.FILTRATION,
+    name: "Filtration",
+    description: "Expertise en dépollution et maintien de la propreté des fluides hydrauliques. Élimination des contaminants pour protéger vos systèmes.",
+    applications: [
+      "Groupes de filtration mobiles",
+      "Analyse d'huile et comptage de particules",
+      "Remplacement de cartouches filtrantes",
+      "Systèmes de déshydratation",
+      "Filtration haute pression et retour",
+    ],
+    image: IMAGES.HYDRAULIC_HERO_2_2,
+  },
+  {
+    id: SECTORS.TRUCK_PARTS,
+    name: "Pièces de Camion",
+    description: "Vente de pièces détachées et composants hydrauliques pour poids lourds. Large stock de pièces d'origine pour toutes marques.",
+    applications: [
+      "Prises de mouvement (PTO)",
+      "Pompes pour bennes basculantes",
+      "Réservoirs hydrauliques latéraux",
+      "Commandes cabine et joysticks",
+      "Flexibles de liaison remorque",
+    ],
+    image: IMAGES.CONSTRUCTION_EQUIPMENT_2_5,
+  },
 ];

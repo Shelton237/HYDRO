@@ -26,6 +26,8 @@ export const SECTORS = {
   TRANSPORT: "transport",
   MARITIME: "maritime",
   INDUSTRIAL: "industrial",
+  FILTRATION: "filtration",
+  TRUCK_PARTS: "truck_parts",
 } as const;
 
 export type Sector = typeof SECTORS[keyof typeof SECTORS];
