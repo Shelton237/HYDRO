@@ -41,30 +41,30 @@ export function ServiceCard({ service }: ServiceCardProps) {
             />
           </div>
         ) : (
-          <div className="mt-8 flex h-16 w-16 items-center justify-center rounded-full bg-[#004A99]/10 text-[#004A99]">
+          <div className="mt-8 flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
             <IconComponent className="h-8 w-8" />
           </div>
         )}
         <CardHeader className="px-6 pt-6 pb-2">
-          <CardTitle className="text-xl md:text-2xl font-bold text-[#004A99] mb-3">
+          <CardTitle className="text-xl md:text-2xl font-bold text-primary mb-3">
             {service.title}
           </CardTitle>
-          <CardDescription className="text-[15px] leading-relaxed text-[#555555]">
+          <CardDescription className="text-[15px] leading-relaxed text-foreground/70">
             {service.description}
           </CardDescription>
         </CardHeader>
         <CardContent className="px-6 flex-1">
-          <ul className="space-y-2 mt-4 text-sm text-[#555555] inline-block text-left">
+          <ul className="space-y-2 mt-4 text-sm text-foreground/70 inline-block text-left">
             {service.features.map((feature, index) => (
               <li key={index} className="flex items-start gap-2">
-                <Check className="h-4 w-4 text-[#004A99] mt-0.5 flex-shrink-0" />
+                <Check className="h-4 w-4 text-primary mt-0.5 flex-shrink-0" />
                 <span>{feature}</span>
               </li>
             ))}
           </ul>
         </CardContent>
         <CardFooter className="pb-8 pt-4">
-          <Button variant="outline" className="px-8 py-5 rounded-md border-[#004A99] text-[#004A99] hover:bg-[#004A99] hover:text-white font-bold transition-all duration-200" asChild>
+          <Button variant="outline" className="px-8 py-5 rounded-md border-primary text-primary hover:bg-primary hover:text-white font-bold transition-all duration-200" asChild>
             <Link to={ROUTE_PATHS.SERVICES}>
               Détails du service
             </Link>
@@ -106,10 +106,10 @@ export function ProductCard({ product }: ProductCardProps) {
           />
         </div>
         <CardHeader className="flex-1 flex flex-col items-center text-center px-6 pt-2 pb-4">
-          <CardTitle className="text-xl md:text-2xl font-bold text-[#004A99] mb-4">
+          <CardTitle className="text-xl md:text-2xl font-bold text-primary mb-4">
             {product.name}
           </CardTitle>
-          <CardDescription className="text-[15px] leading-relaxed text-[#555555] line-clamp-4">
+          <CardDescription className="text-[15px] leading-relaxed text-foreground/70 line-clamp-4">
             {product.description}
             {product.specifications && product.specifications.length > 0 && (
               <span className="block mt-2 font-medium">
@@ -122,7 +122,7 @@ export function ProductCard({ product }: ProductCardProps) {
           <Button
             onClick={handleAddToQuote}
             className={`px-8 py-6 rounded-md text-sm font-bold transition-all duration-200 min-w-[140px] shadow-md
-              ${added ? "bg-green-600 hover:bg-green-700" : "bg-[#004A99] hover:bg-[#003d7e]"}`}
+              ${added ? "bg-green-600 hover:bg-green-700" : "bg-primary hover:bg-primary/90"}`}
           >
             {added ? (
               <><Check className="mr-2 h-4 w-4" /> Ajouté</>
