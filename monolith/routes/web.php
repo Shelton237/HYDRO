@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\HeroController;
 use App\Http\Controllers\Admin\HomeSectionController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\QuotationController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\ProjectController;
 use App\Models\AboutSection;
@@ -17,6 +18,8 @@ use App\Models\Service;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
 use Inertia\Inertia;
+
+Route::post('/api/quotation', [QuotationController::class, 'store'])->name('quotation.store');
 
 Route::get('/', function () {
     $hero = HeroSection::query()->first();
