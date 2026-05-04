@@ -31,43 +31,42 @@ export function ServiceCard({ service }: ServiceCardProps) {
       whileHover="hover"
       className="h-full"
     >
-      <Card className="h-full overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-200 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
-        {service.image && (
-          <div className="relative h-48 w-full overflow-hidden">
+      <Card className="h-full overflow-hidden border-none shadow-[0_4px_20px_rgba(0,0,0,0.05)] bg-white transition-all duration-300 hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] flex flex-col items-center text-center">
+        {service.image ? (
+          <div className="relative h-56 w-full overflow-hidden bg-white">
             <img
               src={service.image}
               alt={service.title}
-              className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
+              className="h-full w-full object-cover transition-transform duration-500 hover:scale-105"
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-background/80 to-transparent" />
+          </div>
+        ) : (
+          <div className="mt-8 flex h-16 w-16 items-center justify-center rounded-full bg-[#004A99]/10 text-[#004A99]">
+            <IconComponent className="h-8 w-8" />
           </div>
         )}
-        <CardHeader>
-          <div className="mb-3 flex items-center gap-3">
-            <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-primary/10 text-primary">
-              <IconComponent className="h-6 w-6" />
-            </div>
-            <CardTitle className="text-xl font-semibold">{service.title}</CardTitle>
-          </div>
-          <CardDescription className="text-base leading-relaxed">
+        <CardHeader className="px-6 pt-6 pb-2">
+          <CardTitle className="text-xl md:text-2xl font-bold text-[#004A99] mb-3">
+            {service.title}
+          </CardTitle>
+          <CardDescription className="text-[15px] leading-relaxed text-[#555555]">
             {service.description}
           </CardDescription>
         </CardHeader>
-        <CardContent>
-          <ul className="space-y-2">
+        <CardContent className="px-6 flex-1">
+          <ul className="space-y-2 mt-4 text-sm text-[#555555] inline-block text-left">
             {service.features.map((feature, index) => (
-              <li key={index} className="flex items-start gap-2 text-sm text-muted-foreground">
-                <span className="mt-1 h-1.5 w-1.5 flex-shrink-0 rounded-full bg-primary" />
+              <li key={index} className="flex items-start gap-2">
+                <Check className="h-4 w-4 text-[#004A99] mt-0.5 flex-shrink-0" />
                 <span>{feature}</span>
               </li>
             ))}
           </ul>
         </CardContent>
-        <CardFooter>
-          <Button variant="outline" className="w-full group" asChild>
+        <CardFooter className="pb-8 pt-4">
+          <Button variant="outline" className="px-8 py-5 rounded-md border-[#004A99] text-[#004A99] hover:bg-[#004A99] hover:text-white font-bold transition-all duration-200" asChild>
             <Link to={ROUTE_PATHS.SERVICES}>
-              En savoir plus
-              <ArrowRight className="ml-2 h-4 w-4 transition-transform group-hover:translate-x-1" />
+              Détails du service
             </Link>
           </Button>
         </CardFooter>
@@ -98,67 +97,38 @@ export function ProductCard({ product }: ProductCardProps) {
       whileHover="hover"
       className="h-full"
     >
-      <Card className="h-full overflow-hidden border-border/50 bg-card/50 backdrop-blur-sm transition-all duration-200 hover:border-primary/30 hover:shadow-lg hover:shadow-primary/5">
-        {product.image && (
-          <div className="relative h-56 w-full overflow-hidden bg-muted">
-            <img
-              src={product.image}
-              alt={product.name}
-              className="h-full w-full object-cover transition-transform duration-300 hover:scale-105"
-            />
-            {product.price && (
-              <Badge className="absolute right-3 top-3 bg-primary text-primary-foreground shadow-lg">
-                {product.price}
-              </Badge>
-            )}
-          </div>
-        )}
-        <CardHeader>
-          <div className="mb-2">
-            <Badge variant="secondary" className="mb-3">
-              {product.category}
-            </Badge>
-            <CardTitle className="text-lg font-semibold leading-tight">
-              {product.name}
-            </CardTitle>
-          </div>
-          <CardDescription className="text-sm leading-relaxed">
+      <Card className="h-full overflow-hidden border-none shadow-[0_4px_20px_rgba(0,0,0,0.05)] bg-white transition-all duration-300 hover:shadow-[0_10px_30px_rgba(0,0,0,0.1)] flex flex-col">
+        <div className="relative aspect-[4/3] w-full overflow-hidden bg-white p-4">
+          <img
+            src={product.image}
+            alt={product.name}
+            className="h-full w-full object-contain transition-transform duration-500 group-hover:scale-105"
+          />
+        </div>
+        <CardHeader className="flex-1 flex flex-col items-center text-center px-6 pt-2 pb-4">
+          <CardTitle className="text-xl md:text-2xl font-bold text-[#004A99] mb-4">
+            {product.name}
+          </CardTitle>
+          <CardDescription className="text-[15px] leading-relaxed text-[#555555] line-clamp-4">
             {product.description}
+            {product.specifications && product.specifications.length > 0 && (
+              <span className="block mt-2 font-medium">
+                {product.specifications.slice(0, 2).join(", ")}
+              </span>
+            )}
           </CardDescription>
         </CardHeader>
-        {product.specifications && product.specifications.length > 0 && (
-          <CardContent>
-            <div className="space-y-1.5">
-              <p className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
-                Spécifications
-              </p>
-              <ul className="space-y-1">
-                {product.specifications.slice(0, 3).map((spec, index) => (
-                  <li key={index} className="flex items-start gap-2 text-xs text-muted-foreground">
-                    <span className="mt-1 h-1 w-1 flex-shrink-0 rounded-full bg-primary/60" />
-                    <span>{spec}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </CardContent>
-        )}
-        <CardFooter className="flex gap-2">
+        <CardFooter className="pb-8 pt-0 flex justify-center">
           <Button
-            className="flex-1 gap-2"
             onClick={handleAddToQuote}
-            variant={added ? "secondary" : "default"}
+            className={`px-8 py-6 rounded-md text-sm font-bold transition-all duration-200 min-w-[140px] shadow-md
+              ${added ? "bg-green-600 hover:bg-green-700" : "bg-[#004A99] hover:bg-[#003d7e]"}`}
           >
             {added ? (
-              <><Check className="h-4 w-4" /> Ajouté !</>
+              <><Check className="mr-2 h-4 w-4" /> Ajouté</>
             ) : (
-              <><Plus className="h-4 w-4" /> Devis</>
+              "En savoir plus"
             )}
-          </Button>
-          <Button variant="outline" size="icon" asChild>
-            <Link to={ROUTE_PATHS.PRODUCTS} title="Voir détails">
-              <ArrowRight className="h-4 w-4" />
-            </Link>
           </Button>
         </CardFooter>
       </Card>
