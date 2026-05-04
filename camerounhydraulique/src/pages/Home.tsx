@@ -54,7 +54,7 @@ export default function Home() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ ...springPresets.gentle, delay: 0.1 }}
             >
-              L'expertise electro-hydraulique
+              L'expertise hydraulique
               <br />
               <span className="text-primary">au coeur de votre activite</span>
             </motion.h1>
